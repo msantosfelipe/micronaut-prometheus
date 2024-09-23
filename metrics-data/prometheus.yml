@@ -11,8 +11,8 @@ scrape_configs:
   - job_name: "micronaut"
     metrics_path: "/prometheus"
     static_configs:
-      - targets: ["192.168.0.82:8080"]
+      - targets: ["host.docker.internal:8080"]
   # MongoDB
   - job_name: 'mongodb'
     static_configs:
-      - targets: ['192.168.0.82:9216']
+      - targets: ['mongodb_exporter:9216']
