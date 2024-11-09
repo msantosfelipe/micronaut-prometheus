@@ -1,22 +1,21 @@
 #!/bin/bash
 
-words=("Company 1" "Company 2" "Company 3" "Company 4" "Company 5")
-endpoint="http://localhost:8080/package/"
+words=("Wallmart" "Amazon" "Best Buy" "Home Depot" "Ebay")
+endpoint="http://localhost:8080/purchases/"
 
-endpoint1() {
+savePurchase() {
     word=${words[$RANDOM % ${#words[@]}]}
-    url="$endpoint$word"
-    response=$(curl -s -o /dev/null -w "%{http_code}" "$url")
-    echo "Call to $url, Status Code: $response"
+    response=$(curl --location "$endpoint" \
+        --header "Content-Type: application/json" \
+        --data "{
+            \"store\" : \"$word\"
+        }" -s -o /dev/null -w "%{http_code}")
+    echo "Call to $endpoint with store: $word, Status Code: $response"
 }
 
-endpoint2() {
-    response=$(curl -s -o /dev/null -w "%{http_code}" "$endpoint")
-    echo "Call to $endpoint, Status Code: $response"
-}
+end=$((SECONDS+600))
 
-while true; do
-    endpoint1
-    endpoint2
+while [ $SECONDS -lt $end ]; do
+    savePurchase
     sleep 1
 done

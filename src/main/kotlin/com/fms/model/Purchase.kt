@@ -5,9 +5,9 @@ import io.micronaut.data.annotation.Id
 import io.micronaut.data.annotation.MappedEntity
 
 @MappedEntity
-data class Package(
+data class Purchase(
     @field:Id
     @field:GeneratedValue
     val id: String? = null,
-    val companyName: String,
+    val store: String,
 )

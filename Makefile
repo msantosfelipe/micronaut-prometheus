@@ -1,10 +1,10 @@
-start:
+start-docker:
 	cd metrics-data/ && docker compose up -d
 
-stop:
+stop-docker:
 	cd metrics-data/ && docker compose stop
 
-remove:
+remove-docker:
 	cd metrics-data/ && docker compose down
 
 do-requests:
