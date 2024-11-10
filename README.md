@@ -17,7 +17,7 @@ cd metrics-data/ && docker compose up -d
 ```shell
 ./gradlew run
 ```
-4. Send requests to insert new data to the database
+4. Send requests to insert new data to the database.
 It simulates some stores sending new purchases to the application
 ```shell
 cd metrics-data/ && chmod +x requests.sh && ./requests.sh
@@ -36,8 +36,7 @@ cd metrics-data/ && chmod +x requests.sh && ./requests.sh
   - Save & Test
 - Import the dashboard example from the file `metrics-data/grafana-dashboard.json`
   - May be necessary to reconfigure the visualizations 
-
-7. Access the dashboard and see the metrics
+- Access the dashboard and see the metrics
 ![Dashboard example](metrics-data/dashboard-example.png)
 
 ### Stopping the application
