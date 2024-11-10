@@ -1,45 +1,47 @@
-## Micronaut 4.6.2 Documentation
+## Kotlin Micronaut and MongoDB export to Prometheus/Grafana
 
-- [User Guide](https://docs.micronaut.io/4.6.2/guide/index.html)
-- [API Reference](https://docs.micronaut.io/4.6.2/api/index.html)
-- [Configuration Reference](https://docs.micronaut.io/4.6.2/guide/configurationreference.html)
-- [Micronaut Guides](https://guides.micronaut.io/index.html)
----
+This application is a simple example of export metrics from a Kotlin Micronaut application with MongoDB to Prometheus and visualize them in Grafana.
 
-- [Shadow Gradle Plugin](https://plugins.gradle.org/plugin/com.github.johnrengelman.shadow)
-- [Micronaut Gradle Plugin documentation](https://micronaut-projects.github.io/micronaut-gradle-plugin/latest/)
-- [GraalVM Gradle Plugin documentation](https://graalvm.github.io/native-build-tools/latest/gradle-plugin.html)
-## Feature data-mongodb documentation
+### Requirements
+- Docker
+- Docker Compose
+- Java 21
+- Gradle
 
-- [Micronaut Data MongoDB documentation](https://micronaut-projects.github.io/micronaut-data/latest/guide/#mongo)
+### Running the application
+1. Clone the repository
+2. Run the following commands to start the application:
+```shell
+cd metrics-data/ && docker compose up -d
+```
+```shell
+./gradlew run
+```
+4. Send requests to insert new data to the database
+It simulates some stores sending new purchases to the application
+```shell
+cd metrics-data/ && chmod +x requests.sh && ./requests.sh
+```
+5. Access Prometheus metrics:
+- Application metrics at http://localhost:8080/prometheus
+- MongoDB metrics at http://localhost:9216/metrics
+- Prometheus dashboard: http://localhost:9090/
 
-- [https://docs.mongodb.com](https://docs.mongodb.com)
+6. Access Grafana dashboard:
+- Dashboard: http://localhost:3000/
+  - Login: admin/admin
+- Add new data source:
+  - Type: Prometheus
+  - URL: http://localhost:9090/
+  - Save & Test
+- Import the dashboard example from the file `metrics-data/grafana-dashboard.json`
+  - May be necessary to reconfigure the visualizations 
 
+7. Access the dashboard and see the metrics
+![Dashboard example](metrics-data/dashboard-example.png)
 
-## Feature management documentation
-
-- [Micronaut Management documentation](https://docs.micronaut.io/latest/guide/index.html#management)
-
-
-## Feature serialization-jackson documentation
-
-- [Micronaut Serialization Jackson Core documentation](https://micronaut-projects.github.io/micronaut-serialization/latest/guide/)
-
-
-## Feature test-resources documentation
-
-- [Micronaut Test Resources documentation](https://micronaut-projects.github.io/micronaut-test-resources/latest/guide/)
-
-
-## Feature ksp documentation
-
-- [Micronaut Kotlin Symbol Processing (KSP) documentation](https://docs.micronaut.io/latest/guide/#kotlin)
-
-- [https://kotlinlang.org/docs/ksp-overview.html](https://kotlinlang.org/docs/ksp-overview.html)
-
-
-## Feature micronaut-aot documentation
-
-- [Micronaut AOT documentation](https://micronaut-projects.github.io/micronaut-aot/latest/guide/)
-
-
+### Stopping the application
+1. Run the following command to stop the application:
+```shell
+cd metrics-data/ && docker compose down
+```
