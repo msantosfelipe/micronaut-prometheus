@@ -11,7 +11,7 @@ import jakarta.inject.Inject
 
 @Validated
 @Controller("/purchases")
-class PackageController(
+class PurchaseController(
     private val service: PurchaseService
 ) {
     @Inject
